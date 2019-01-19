@@ -6,6 +6,8 @@ pool:
 variables:
   buildConfiguration: 'Release'
   imageName: 'dotnetcore:$(Build.BuildId)'
+  dockerId: fmorminojr
+  dockerPassword: Simpsons1511!
   # define two more variables dockerId and dockerPassword in the build pipeline in UI
 
 steps:
