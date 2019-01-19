@@ -23,8 +23,16 @@ steps:
 
 - script: dotnet build # Include additional options such as --configuration to meet your need
 
-- script: dotnet tool install -g dotnetsay
-- script: dotnetsay
+# - script: dotnet tool install -g dotnetsay
+# - script: dotnetsay
+#
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: test
+    projects: '**/*Tests/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
 
 - task: DotNetCoreCLI@2
   inputs:
