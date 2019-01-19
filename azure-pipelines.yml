@@ -2,7 +2,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core?view=vsts
 
 pool:
-  vmImage: 'Ubuntu 16.04'
+  vmImage: 'ubuntu-16.04' # other options: 'macOS-10.13', 'vs2017-win2016'
   
 variables:
   buildConfiguration: 'Release'
@@ -13,6 +13,13 @@ steps:
     dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
     dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
 
+# .NET Core
+# Restore NuGet packages.
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+    #verbosityRestore: 'detailed' # Options: quiet, minimal, normal, detailed, diagnostic
 - task: PublishTestResults@2
   condition: succeededOrFailed()
   inputs:
