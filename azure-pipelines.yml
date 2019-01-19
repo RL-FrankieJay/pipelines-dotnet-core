@@ -55,8 +55,9 @@ steps:
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
 
-- script: dotnet test <test-project> --logger trx --collect "Code coverage"
+- script: dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
 - task: PublishTestResults@2
+  condition: succeededOrFailed()
   inputs:
     testRunner: VSTest
     testResultsFiles: '**/*.trx'
